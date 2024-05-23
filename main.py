@@ -9,12 +9,12 @@ from fastapi.responses import JSONResponse
 from loguru import logger
 from starlette.middleware.cors import CORSMiddleware
 
-from config.database import execute_query
-from config.log_config import InterceptHandler
-from config.setting import ApplicationSettings
-from core.common import scheduler
-from core.common.custom_exception import ReturnHandler
-from core.common.l10n import load_languages
+from app.config.database import execute_query
+from app.config.logging_config import InterceptHandler
+from app.config.settings import ApplicationSettings
+from app.core import scheduler
+from app.core.exceptions import ReturnHandler
+from app.core.localization import load_languages
 
 # 로그 설정 (Loguru)
 logging.root.handlers = [InterceptHandler()]

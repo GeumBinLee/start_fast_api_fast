@@ -9,7 +9,7 @@ import uuid
 import requests
 
 from config.setting import get_settings
-from core.common.enums import AuthType
+from app.core.enums import AuthType
 
 
 def get_token():

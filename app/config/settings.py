@@ -4,10 +4,12 @@ from functools import lru_cache
 
 from pydantic_settings import BaseSettings
 
-from config.log_config import JSON_LOGS, Rotator
+from app.config.logging_config import JSON_LOGS, Rotator
+
+
 
 # 메인 기준 경로
-LOG_PATH = "logs"
+LOG_PATH = "app/logs"
 
 
 class Settings(BaseSettings):

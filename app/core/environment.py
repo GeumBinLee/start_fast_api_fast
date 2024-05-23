@@ -1,6 +1,6 @@
 from enum import auto
 
-from core.common.enums import Currency, StringEnum
+from app.core.enums import Currency, StringEnum
 
 
 class Environment(str, StringEnum):
