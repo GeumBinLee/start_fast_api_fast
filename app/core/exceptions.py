@@ -28,6 +28,9 @@ class ReturnHandler(Exception):
         self.client_ip = client_ip
 
     def handle_success(self, request=None, dblogger=None):
+        """
+        성공적인 요청을 처리합니다.
+        """
         msg = (
             f"\nURL: {request.url}\n"
             f"client_name: {self.client_name}\n"

@@ -12,8 +12,8 @@ class StringEnum(Enum):
         return self.name
 
     @classmethod
-    def values(self):
-        return [e.value for e in self]
+    def values(cls):
+        return [e.value for e in cls]
 
 
 class AuthType(str, StringEnum):

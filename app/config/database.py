@@ -8,6 +8,7 @@ from app.core.exceptions import ReturnHandler
 
 settings = get_settings()
 
+
 def get_db_connection():
     """
     데이터베이스 연결을 설정하고 반환합니다.
@@ -20,6 +21,7 @@ def get_db_connection():
         database=settings.db_database,
         port=settings.db_port,
     )
+
 
 def execute_query(query: str, params: Tuple = None, method: str = "fetchall"):
     """
@@ -43,6 +45,7 @@ def execute_query(query: str, params: Tuple = None, method: str = "fetchall"):
     finally:
         conn.close()
 
+
 def transaction_queries(
     queries: List[str],
     params: Union[List[Tuple], List[Dict]] = None,
@@ -63,7 +66,11 @@ def transaction_queries(
     try:
         with conn.cursor() as cur:
             for query, param in zip(queries, params or [()] * len(queries)):
-                if results and not query.strip().lower().startswith("select") and select is not None:
+                if (
+                    results
+                    and not query.strip().lower().startswith("select")
+                    and select is not None
+                ):
                     query = query.format(select=results[select])
                 cur.execute(query, param or ())
                 rows = getattr(cur, method)() if method != "execute" else None
