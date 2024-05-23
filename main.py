@@ -15,6 +15,7 @@ from config.log_config import InterceptHandler
 from config.setting import ApplicationSettings
 from core.common import scheduler
 from core.common.custom_exception import ReturnHandler
+from core.common.l10n import load_languages
 
 # 로그 설정 (Loguru)
 logging.root.handlers = [InterceptHandler()]
@@ -76,7 +77,7 @@ def read_item(item_id: int):
 
 
 async def server_on():
-    pass
+    load_languages()
 
 
 @app.middleware("http")
