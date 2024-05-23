@@ -74,7 +74,7 @@ def send_sms(phone_number: str, content: str, type: AuthType):
     api_key = settings.sms_api_key
     api_secret = settings.sms_api_secret
     sender = settings.sms_sender
-    
+
     # TODO: 메세지 내용 바꾸기
     if type == AuthType.VERIFICATION:
         message = f"고객님의 인증번호는 [{content}]입니다. 감사합니다."

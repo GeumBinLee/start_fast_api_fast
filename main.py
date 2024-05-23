@@ -1,14 +1,13 @@
 import logging
 import sys
-from fastapi import APIRouter, FastAPI, HTTPException, Request
-from fastapi.exceptions import (
-    HTTPException as StarletteHTTPException,
-    RequestValidationError,
-)
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import HTTPException as StarletteHTTPException
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from loguru import logger
 from starlette.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
 
 from config.database import execute_query
 from config.log_config import InterceptHandler
@@ -30,6 +29,7 @@ logger.configure(**ApplicationSettings.log_config())
 # 스케줄러 실행
 scheduler.start()
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 시작 시 실행할 코드
@@ -37,6 +37,7 @@ async def lifespan(app: FastAPI):
     yield
     # 종료 시 실행할 코드
     pass
+
 
 app = FastAPI(
     title="카카오 알림톡",

@@ -1,7 +1,9 @@
 import datetime
 import sys
 from functools import lru_cache
+
 from pydantic_settings import BaseSettings
+
 from config.log_config import JSON_LOGS, Rotator
 
 # 메인 기준 경로
@@ -63,7 +65,9 @@ class ApplicationSettings:
             "{time:YYYY-MM-DD HH:mm:ss.SSS} | <level>{level: <8}</level> | <magenta>{process}:"
             "{thread.name}</magenta> <cyan>[{name}:{function}:{line}]</cyan> <level>{message}</level>"
         )
-        rotator = Rotator(size=1e8, at=datetime.time(0, 0, 0))  # 100MB or 0시에 새로운 로그 파일
+        rotator = Rotator(
+            size=1e8, at=datetime.time(0, 0, 0)
+        )  # 100MB or 0시에 새로운 로그 파일
         config = {
             "handlers": [
                 # 콘솔

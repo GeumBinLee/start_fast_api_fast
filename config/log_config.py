@@ -1,8 +1,9 @@
 import datetime
 import logging
-import sys
-from loguru import logger
 import os
+import sys
+
+from loguru import logger
 
 JSON_LOGS = True if os.environ.get("JSON_LOGS", "0") == "1" else False
 

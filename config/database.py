@@ -1,8 +1,10 @@
-import pymysql
 import time
-from typing import List, Tuple, Union, Dict
-from core.common.custom_exception import ReturnHandler
+from typing import Dict, List, Tuple, Union
+
+import pymysql
+
 from config.setting import get_settings
+from core.common.custom_exception import ReturnHandler
 
 settings = get_settings()
 
@@ -40,7 +42,6 @@ def execute_query(query: str, params: Tuple = None, method: str = "fetchall"):
         raise ReturnHandler(e, start_time, query, params)
     finally:
         conn.close()
-
 
 
 def transaction_queries(
