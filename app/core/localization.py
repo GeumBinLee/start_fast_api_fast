@@ -32,6 +32,3 @@ def translate(locale: str, key: str) -> str:
 
     lower_key = str(key).lower()
     return languages.get(lower_key, key)
-
-
-# 프로그램 시작 시 언어 파일 로드

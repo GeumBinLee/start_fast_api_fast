@@ -78,6 +78,7 @@ def read_item(item_id: int):
 
 
 async def server_on():
+    # 프로그램 시작 시 언어 파일 로드
     load_languages()
 
 

@@ -6,8 +6,6 @@ from pydantic_settings import BaseSettings
 
 from app.config.logging_config import JSON_LOGS, Rotator
 
-
-
 # 메인 기준 경로
 LOG_PATH = "app/logs"
 

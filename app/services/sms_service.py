@@ -8,7 +8,7 @@ import uuid
 
 import requests
 
-from config.setting import get_settings
+from app.config.settings import get_settings
 from app.core.enums import AuthType
 
 

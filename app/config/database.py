@@ -3,8 +3,8 @@ from typing import Dict, List, Tuple, Union
 
 import pymysql
 
-from config.setting import get_settings
-from core.common.custom_exception import ReturnHandler
+from app.config.settings import get_settings
+from app.core.exceptions import ReturnHandler
 
 settings = get_settings()
 
