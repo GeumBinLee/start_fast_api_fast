@@ -1,0 +1,18 @@
+{
+    "python.pythonPath": "<your-python-interpreter-path>",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.formatting.autopep8Path": "<path-to-autopep8>",
+    "python.formatting.blackPath": "<path-to-black>",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "88"
+    ],
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "files.exclude": {
+        "**/__pycache__/": true,
+        "**/.pytest_cache/": true
+    }
+}
