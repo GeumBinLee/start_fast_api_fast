@@ -1,6 +1,10 @@
 import datetime
+import json
 import socket
+from unittest.mock import MagicMock
 
+import pytest
+from fastapi import Request
 from fastapi.responses import JSONResponse
 
 
@@ -37,7 +41,8 @@ class ReturnHandler(Exception):
             f"client_ip: {self.client_ip}\n"
             f"status_code: {self.status_code}\n"
         )
-        dblogger.info(msg)
+        if dblogger:
+            dblogger.info(msg)
         content = {"status_code": self.status_code, "message": self.message}
 
         if self.result:
