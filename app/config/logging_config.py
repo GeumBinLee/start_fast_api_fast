@@ -30,10 +30,10 @@ class Rotator:
 
 
 class InterceptHandler(logging.Handler):
-    def emit(self, record):
+    def emit(self, record: logging.LogRecord):
         try:
             level = logger.level(record.levelname).name
-        except ValueError:
+        except AttributeError:
             level = record.levelno
 
         frame, depth = sys._getframe(6), 6
