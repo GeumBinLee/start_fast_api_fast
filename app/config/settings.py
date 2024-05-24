@@ -2,6 +2,7 @@ import datetime
 import sys
 from functools import lru_cache
 
+from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
 from app.config.logging_config import JSON_LOGS, Rotator
@@ -25,23 +26,19 @@ class Settings(BaseSettings):
     sms_api_key: str
     sms_api_secret: str
 
-    class Config:
-        env_file = ".env"
+    model_config = ConfigDict(env_file=".env")
 
 
 class DevelopSettings(Settings):
-    class Config:
-        env_file = "develop.env"
+    model_config = ConfigDict(env_file="develop.env")
 
 
 class StagingSettings(Settings):
-    class Config:
-        env_file = "staging.env"
+    model_config = ConfigDict(env_file="staging.env")
 
 
 class ProductionSettings(Settings):
-    class Config:
-        env_file = "production.env"
+    model_config = ConfigDict(env_file="production.env")
 
 
 class ApplicationSettings:
