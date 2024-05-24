@@ -1,41 +1,43 @@
 import json
-from typing import Dict
+from unittest.mock import mock_open, patch
+
+import pytest
+
+from app.core.localization import LANGUAGES, load_languages, translate
 
 FILE_PATH = "resources/languages/"
 DEFAULT_LANGUAGE = "en"
-LANGUAGES: Dict[str, Dict[str, str]] = {}
 
 
-def load_languages():
+def test_load_languages(monkeypatch):
     """
     언어 파일을 로드하여 전역 변수에 저장합니다.
     """
-    global LANGUAGES
-    locales = ["en", "ko"]
-    for locale in locales:
-        try:
-            with open(f"{FILE_PATH}{locale}.json", "r") as file:
-                LANGUAGES[locale] = json.load(file)
-        except FileNotFoundError:
-            if locale == DEFAULT_LANGUAGE:
-                raise RuntimeError(f"기본 언어 파일 [{DEFAULT_LANGUAGE}]을 찾을 수 없습니다.")
-            # 기본 언어가 아니면 무시
-            pass
+    mock_en_data = json.dumps({"hello": "Hello", "goodbye": "Goodbye"})
+
+    mock_ko_data = json.dumps({"hello": "안녕하세요", "goodbye": "안녕히 가세요"})
+
+    mock_open_file = mock_open()
+    mock_open_file.side_effect = [
+        mock_open(read_data=mock_en_data).return_value,
+        mock_open(read_data=mock_ko_data).return_value,
+    ]
+
+    monkeypatch.setattr("builtins.open", mock_open_file)
+
+    load_languages()
+    assert LANGUAGES["en"] == json.loads(mock_en_data)
+    assert LANGUAGES["ko"] == json.loads(mock_ko_data)
 
 
-def translate(locale: str, key: str) -> str:
+def test_translate():
     """
     주어진 키에 대해 지정된 언어로 번역된 문자열을 반환합니다.
-    :param locale: 언어 코드
-    :param key: 번역할 키
-    :return: 번역된 문자열
     """
-    if key is None:
-        return None
+    LANGUAGES["en"] = {"hello": "Hello", "goodbye": "Goodbye"}
+    LANGUAGES["ko"] = {"hello": "안녕하세요", "goodbye": "안녕히 가세요"}
 
-    languages = LANGUAGES.get(locale)
-    if languages is None:
-        languages = LANGUAGES.get(DEFAULT_LANGUAGE, {})
-
-    lower_key = str(key).lower()
-    return languages.get(lower_key, key)
+    assert translate("en", "hello") == "Hello"
+    assert translate("ko", "hello") == "안녕하세요"
+    assert translate("en", "nonexistent_key") == "nonexistent_key"
+    assert translate("ko", "goodbye") == "안녕히 가세요"
